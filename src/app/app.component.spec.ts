@@ -33,3 +33,43 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('.content span').textContent).toContain('GrugeRetort app is running!');
   });
 });
+
+
+mockBooksSelector.setResult([
+  {
+    id: 'firstId',
+    volumeInfo: {
+      title: 'First Title',
+      authors: ['First Author'],
+    },
+  },
+  {
+    id: 'secondId',
+    volumeInfo: {
+      title: 'Second Title',
+      authors: ['Second Author'],
+    },
+  },
+]);
+
+mockBookCollectionSelector.setResult([
+  {
+    id: 'firstId',
+    volumeInfo: {
+      title: 'First Title',
+      authors: ['First Author'],
+    },
+  },
+]);
+
+store.refreshState();
+fixture.detectChanges();
+
+expect(
+  fixture.debugElement.queryAll(By.css('.book-list .book-item')).length
+).toBe(2);
+
+expect(
+  fixture.debugElement.queryAll(By.css('.book-collection .book-item'))
+    .length
+).toBe(1);
